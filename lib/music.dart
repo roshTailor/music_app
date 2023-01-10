@@ -37,11 +37,13 @@ class _MusicState extends State<Music> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      top: true,
-      left: true,
-      right: true,
-      minimum: const EdgeInsets.only(left: 10, right: 10, top: 60),
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(begin: Alignment.bottomCenter, colors: [
+          Colors.white,
+          Color(0xFFFFCCA9),
+        ]),
+      ),
       child: ListView(
         children: Variable.audio
             .map((e) => ListTile(
@@ -63,16 +65,16 @@ class _MusicState extends State<Music> {
                   title: Text(
                     e['name'],
                     style: const TextStyle(
-                      color: Color(0xFFFF8D44),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                      color: Color(0xFFD46117),
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
                       letterSpacing: 0.8,
                     ),
                   ),
                   subtitle: Text(
                     e['singer'],
-                    style: const TextStyle(
-                      color: Colors.grey,
+                    style: TextStyle(
+                      color: Colors.grey.shade600,
                       fontSize: 14,
                     ),
                   ),
@@ -83,16 +85,17 @@ class _MusicState extends State<Music> {
                           Audio('${e['path']}'),
                           showNotification: true,
                         );
-                        Variable.assetsAudioPlayer.isPlaying.value==true
-                            ? Variable.assetsAudioPlayer.playOrPause()
-                            : Variable.assetsAudioPlayer.stop();
+                        // Variable.assetsAudioPlayer.isPlaying.value == true
+                        //     ? Variable.assetsAudioPlayer.playOrPause()
+                        //     : Variable.assetsAudioPlayer.stop();
+                        Variable.assetsAudioPlayer.playOrPause();
                       });
                     },
                     child: Icon(
                       Variable.assetsAudioPlayer.isPlaying.value
                           ? CupertinoIcons.stop_fill
                           : CupertinoIcons.play_arrow_solid,
-                      color: Colors.grey,
+                      color: Colors.grey.shade600,
                       size: 25,
                     ),
                   ),
