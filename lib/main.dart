@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'IntroScreen.dart';
 import 'homePage.dart';
 import 'loginPage.dart';
+import 'musicDetail.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,6 +27,7 @@ void main() async {
         '/': (context) => const BrowserIntro(),
         'home': (context) => const HomePage(),
         'login': (context) => const Loginpage(),
+        'details': (context) => const MusicDetails()
       },
     ),
   );

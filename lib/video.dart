@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import 'VideoPage.dart';
 import 'global.dart';
 class VideoHomePage extends StatefulWidget {
   const VideoHomePage({Key? key}) : super(key: key);
@@ -53,3 +51,16 @@ class _VideoHomePageState extends State<VideoHomePage> {
   }
 }
 
+class Video extends StatefulWidget {
+  const Video({Key? key, required int videoIndex}) : super(key: key);
+
+  @override
+  State<Video> createState() => _VideoState();
+}
+
+class _VideoState extends State<Video> {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}

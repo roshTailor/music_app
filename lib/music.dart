@@ -1,7 +1,6 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'global.dart';
 
 class Music extends StatefulWidget {
@@ -12,95 +11,85 @@ class Music extends StatefulWidget {
 }
 
 class _MusicState extends State<Music> {
-  //
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   Variable.assetsAudioPlayer.open(Audio(''),
-  //   autoStart: true,
-  //   showNotification: true,
-  //   );
-  //
-  //   Variable.assetsAudioPlayer.currentPosition.listen((curPosition) {
-  //     setState(() {
-  //       Variable.position=curPosition;
-  //     });
-  //   });
-  //
-  //   Variable.assetsAudioPlayer.current.listen((totalDuration) {
-  //     setState(() {
-  //       Variable.duration = totalDuration!.audio.duration;
-  //     });
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      top: true,
-      left: true,
-      right: true,
-      minimum: const EdgeInsets.only(left: 10, right: 10, top: 60),
-      child: ListView(
-        children: Variable.audio
-            .map((e) => ListTile(
-                  onTap: () {
-                    // Navigator.of(context).push();
-                    Variable.musicIndex=e as int;
-                    Navigator.pushNamed(context, 'music');
-                  },
-                  leading: Container(
-                    height: 70,
-                    width: 65,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      image: DecorationImage(
-                        image: AssetImage(e['image']),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  title: Text(
-                    e['name'],
-                    style: const TextStyle(
-                      color: Color(0xFFFF8D44),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      letterSpacing: 0.8,
-                    ),
-                  ),
-                  subtitle: Text(
-                    e['singer'],
-                    style: const TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14,
-                    ),
-                  ),
-                  trailing: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        Variable.assetsAudioPlayer.open(
-                          Audio('${e['path']}'),
-                          showNotification: true,
-                        );
-                        Variable.assetsAudioPlayer.isPlaying.value==true
-                            ? Variable.assetsAudioPlayer.playOrPause()
-                            : Variable.assetsAudioPlayer.stop();
-                      });
-                    },
-                    child: Icon(
-                      Variable.assetsAudioPlayer.isPlaying.value
-                          ? CupertinoIcons.stop_fill
-                          : CupertinoIcons.play_arrow_solid,
-                      color: Colors.grey,
-                      size: 25,
-                    ),
-                  ),
-                  //tileColor: const Color(0xFFFFE5D4),
-                ))
-            .toList(),
-      ),
-    );
+    return Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(begin: Alignment.bottomCenter, colors: [
+            Colors.white,
+            Color(0xFFFFCCA9),
+          ]),
+        ),
+        child: ListView.builder(
+          itemCount: Variable.audio.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              onTap: () {
+                Variable.musicIndex = index;
+                Navigator.pushNamed(context, 'details');
+              },
+            leading: Container(
+                            height: 70,
+                            width: 65,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              image: DecorationImage(
+                                image: AssetImage(Variable.audio[index]['image']),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          title: Text(
+                            Variable.audio[index]['name'],
+                            style: const TextStyle(
+                              color: Color(0xFFFF8D44),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              letterSpacing: 0.8,
+                            ),
+                          ),
+                          subtitle: Text(
+                            Variable.audio[index]['singer'],
+                            style: const TextStyle(
+                              color: Colors.grey,
+                              fontSize: 14,
+                            ),
+                          ),
+                          trailing: GestureDetector(
+                            onTap: () {
+                              if(Variable.audio[index]['play'] == false) {
+                                Variable.assetsAudioPlayer.open(
+                                  Audio('${Variable.audio[index]['path']}'),
+                                  showNotification: true,
+                                );
+                              }
+                              setState(() {
+                                for(int no = 0 ; no < Variable.audio.length ; no++) {
+                                  if(no == index) {
+                                    continue;
+                                  }
+                                  else {
+                                    Variable.audio[no]['play'] = false;
+
+                                  }
+                                }
+                                Variable.audio[index]['play'] = !Variable.audio[index]['play'];
+                                Variable.assetsAudioPlayer.playOrPause();
+                              });
+                            },
+                            child: Icon(
+                              Variable.audio[index]['play']==true
+                                  ? CupertinoIcons.stop_fill
+                                  : CupertinoIcons.play_arrow_solid,
+                              color: Colors.grey,
+                              size: 25,
+                            ),
+                          ),
+                          //tileColor: const Color(0xFFFFE5D4),
+            );
+          },
+        )
+        );
   }
 }

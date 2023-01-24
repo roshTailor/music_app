@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/video.dart';
 
+import 'VideoPage.dart';
 import 'gallery.dart';
 import 'music.dart';
 
@@ -14,7 +15,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int index = 0;
-  final page = [
+  List page = [
     const Music(),
     const Gallery(),
     const VideoHomePage(),
@@ -25,10 +26,11 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: page[index],
       bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: const Color(0xFFFF8D44),
-        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.white,
         elevation: 0,
-        backgroundColor: const Color(0xffFEFEFE),
+        selectedItemColor: const Color(0xFFFF8D44),
+        unselectedItemColor: const Color(0xFFFFCCA9),
+        type: BottomNavigationBarType.fixed,
         currentIndex: index,
         onTap: (val) {
           setState(() {
@@ -41,11 +43,13 @@ class _HomePageState extends State<HomePage> {
             label: "Music",
           ),
           BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.photo_on_rectangle),
+            icon: Icon(Icons.photo),
             label: "Gallery",
           ),
           BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.video_camera), label: "Video"),
+            icon: Icon(CupertinoIcons.video_camera_solid),
+            label: "Video",
+          ),
         ],
       ),
     );
