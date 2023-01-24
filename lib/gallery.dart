@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:untitled/global.dart';
+=======
+>>>>>>> origin/master
 
 class Gallery extends StatefulWidget {
   const Gallery({Key? key}) : super(key: key);
@@ -12,6 +15,7 @@ class Gallery extends StatefulWidget {
 class _GalleryState extends State<Gallery> {
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return ListView(
       children: [
         Padding(
@@ -73,5 +77,8 @@ class _GalleryState extends State<Gallery> {
         )
       ],
     );
+=======
+    return Container();
+>>>>>>> origin/master
   }
 }
